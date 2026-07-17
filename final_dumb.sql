@@ -207,7 +207,7 @@ WHERE department = 'Computer Science';
 
 
 
--- Update, delete, and select on Courses (Member D)
+-- Update, delete, and select on Courses
 UPDATE Courses
     SET credits = 5
     WHERE course_id = 1;
