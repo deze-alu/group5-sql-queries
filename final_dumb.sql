@@ -8,7 +8,7 @@ USE alu_database;
 
 -- Creates the Classroom table
 CREATE TABLE Classroom(
-    classroom_id INT PRIMARY KEY,
+    classroom_id INT AUTO_INCREMENT PRIMARY KEY,
     room_number VARCHAR(10) NOT NULL,
     building VARCHAR(50) NOT NULL,
     capacity INT NOT NULL
@@ -30,7 +30,7 @@ CREATE TABLE Students (
 
 -- Creates the Faculty table
 CREATE TABLE Faculty (
-    faculty_id INT PRIMARY KEY,
+    faculty_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     department VARCHAR(50) NOT NULL
@@ -43,11 +43,11 @@ CREATE TABLE Courses (
     course_id     INT          NOT NULL AUTO_INCREMENT,
     course_name   VARCHAR(100) NOT NULL,
     credits       INT,
-    faculty_id    INT          NOT NULL,
+    faculty_id    INT,
     classroom_id  INT          NOT NULL,
     PRIMARY KEY (course_id),
     CONSTRAINT fk_courses_faculty
-        FOREIGN KEY (faculty_id)   REFERENCES Faculty (faculty_id),
+        FOREIGN KEY (faculty_id)   REFERENCES Faculty (faculty_id) ON DELETE SET NULL,
     CONSTRAINT fk_courses_classroom
         FOREIGN KEY (classroom_id) REFERENCES Classroom (classroom_id)
 );
@@ -101,6 +101,12 @@ VALUES (1,'101', 'Main Block', 30);
 INSERT INTO Classroom (classroom_id, room_number, building, capacity)
 VALUES (2, '102', 'Main Block', 25);
 
+INSERT INTO Classroom (room_number, building, capacity) VALUES
+    ('201', 'Tech Hub',      30),
+    ('301', 'Arts Wing',     50),
+    ('205', 'Science Block', 45),
+    ('110', 'Temp Annex',    25);
+
 -- Inserts rows into Students
 INSERT INTO Students (name, email, classroom_id, enrollment_date) VALUES
     ('Amara Okafor',    'amara.okafor@alu.edu',    1, '2024-09-01'),
@@ -108,7 +114,7 @@ INSERT INTO Students (name, email, classroom_id, enrollment_date) VALUES
     ('Chiamaka Eze',    'chiamaka.eze@alu.edu',    1, '2024-09-03'),
     ('Thierry Uwase',   'thierry.uwase@alu.edu',   3, '2024-09-03'),
     ('Fatima Diallo',   'fatima.diallo@alu.edu',   2, '2024-09-05'),
-    ('Daniel Bello',    'daniel.bello@alu.edu',    1, '2024-09-05'); 
+    ('Daniel Bello',    'daniel.bello@alu.edu',    1, '2024-09-05');
 
 
 -- Inserts rows into Faculty
@@ -172,9 +178,14 @@ UPDATE Students
     SET email = 'amara.o@alu.edu'
     WHERE student_id = 1;
 
+DELETE FROM Students
+    WHERE student_id = 6;
+
+SELECT student_id, name, email
+    FROM Students
+    WHERE classroom_id = 1;
 
 -- Update, delete, and select on Classroom
-
 UPDATE Classroom
 SET capacity = 28
 WHERE classroom_id = 2;
@@ -184,7 +195,6 @@ WHERE classroom_id = 2;
 
 SELECT * FROM Classroom
 WHERE building = 'Main Block';
-
 
 -- Update Faculty
 UPDATE Faculty
@@ -202,7 +212,7 @@ WHERE department = 'Computer Science';
 
 
 
--- Update, delete, and select on Courses (Member D)
+-- Update, delete, and select on Courses
 UPDATE Courses
     SET credits = 5
     WHERE course_id = 1;
@@ -230,17 +240,57 @@ WHERE category = 'Academic';
 -- ========= JOIN QUERIES =========
 
 -- Join 1: student enrolled in course, taught by faculty, in classroom
-
+SELECT CONCAT(
+        s.name, ' is enrolled in ', c.course_name,
+        ', taught by ', f.name,
+        ', in room ', cl.room_number, '.'
+    ) AS enrollment_sentence
+FROM Student_Courses sc
+JOIN Students  s  ON sc.student_id  = s.student_id
+JOIN Courses   c  ON sc.course_id   = c.course_id
+JOIN Faculty   f  ON c.faculty_id   = f.faculty_id
+JOIN Classroom cl ON c.classroom_id = cl.classroom_id
+ORDER BY s.name;
 
 
 -- Join 2: student participates in activity, advised by faculty
+SELECT CONCAT(
+        s.name, ' participates in ', a.activity_name,
+        ', advised by ', f.name, '.'
+    ) AS activity_sentence
+FROM Student_Activities sa
+JOIN Students s ON sa.student_id = s.student_id
+JOIN Extra_Curricular_Activities a ON sa.activity_id = a.activity_id
+JOIN Faculty  f ON a.faculty_advisor_id = f.faculty_id
+ORDER BY s.name;
 
 
-
--- Join 3: team's own join
-
+-- Join 3: Student's grade in each course they take
+SELECT CONCAT(
+        s.name, ' is taking ', c.course_name,
+        ' and currently has grade ', sc.grade, '.'
+    ) AS grade_sentence
+FROM Student_Courses sc
+JOIN Students s ON sc.student_id = s.student_id
+JOIN Courses  c ON sc.course_id  = c.course_id
+ORDER BY s.name, c.course_name;
 
 
 -- ========= AGGREGATE QUERY =========
 
 -- Count of students in each course (COUNT / GROUP BY)
+SELECT c.course_name,
+       COUNT(sc.student_id) AS num_students
+FROM Courses c
+LEFT JOIN Student_Courses sc ON c.course_id = sc.course_id
+GROUP BY c.course_id, c.course_name
+ORDER BY num_students DESC, c.course_name;
+
+
+-- ========= NORMALIZATION PARAGRAPH ============
+-- Each type of information lives in its own table, and nothing important is
+-- written down twice. A student can join many courses, and a course can have many students (the
+-- same is true for activities).
+-- A teacher's name and a room's details are stored once (in the Faculty and Classroom tables), and the Courses table
+-- simply points to them instead of repeating them. If a teacher's name ever
+-- changes, we only fix it in one place.
