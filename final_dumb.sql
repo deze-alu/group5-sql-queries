@@ -55,14 +55,38 @@ CREATE TABLE Courses (
 
 
 -- Creates the Extra_Curricular_Activities table
+CREATE TABLE Extra_Curricular_Activities (
+    activity_id         INT          NOT NULL AUTO_INCREMENT,
+    activity_name        VARCHAR(100) NOT NULL,
+    category              VARCHAR(50),
+    faculty_advisor_id   INT          NOT NULL,
+    PRIMARY KEY (activity_id),
+    CONSTRAINT fk_activities_faculty
+        FOREIGN KEY (faculty_advisor_id) REFERENCES Faculty (faculty_id)
+);
 
 
 
 -- Creates the Student_Courses junction table
-
-
+CREATE TABLE Student_Courses (
+    student_id  INT,
+    course_id   INT,
+    grade       VARCHAR(2),
+    date_enrolled DATE,
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (student_id) REFERENCES Students(student_id),
+    FOREIGN KEY (course_id)  REFERENCES Courses(course_id)
+);
 
 -- Creates the Student_Activities junction table
+CREATE TABLE Student_Activities (
+    student_id   INT,
+    activity_id  INT,
+    join_date    DATE,
+    PRIMARY KEY (student_id, activity_id),
+    FOREIGN KEY (student_id)  REFERENCES Students(student_id),
+    FOREIGN KEY (activity_id) REFERENCES Extra_Curricular_Activities(activity_id)
+);
 
 
 
@@ -106,14 +130,34 @@ INSERT INTO Courses (course_name, credits, faculty_id, classroom_id) VALUES
 
 
 -- Inserts rows into Extra_Curricular_Activities
-
-
+INSERT INTO Extra_Curricular_Activities (activity_name, category, faculty_advisor_id) VALUES
+    ('Debate Club',    'Academic',   1),
+    ('Football Team',  'Sports',     2),
+    ('Drama Society',  'Arts',       3),
+    ('Coding Club',    'Technology', 1),
+    ('Chess Club',     'Academic',   4);
 
 -- Inserts rows into Student_Courses
+INSERT INTO Student_Courses (student_id, course_id, grade, date_enrolled) VALUES
+    (1, 1, 'A',  '2026-01-15'),
+    (2, 1, 'B+', '2026-01-15'),
+    (3, 2, 'A-', '2026-01-16'),
+    (4, 3, 'C',  '2026-01-16'),
+    (5, 2, 'B',  '2026-01-17');
 
-
+UPDATE Student_Courses SET grade = 'A+' WHERE student_id = 1 AND course_id = 1;
+DELETE FROM Student_Courses WHERE student_id = 5 AND course_id = 2;
 
 -- Inserts rows into Student_Activities
+INSERT INTO Student_Activities (student_id, activity_id, join_date) VALUES
+    (1, 1, '2026-02-01'),
+    (2, 2, '2026-02-01'),
+    (3, 3, '2026-02-02'),
+    (4, 4, '2026-02-02'),
+    (5, 1, '2026-02-03');
+
+UPDATE Student_Activities SET join_date = '2026-02-05' WHERE student_id = 5 AND activity_id = 1;
+DELETE FROM Student_Activities WHERE student_id = 4 AND activity_id = 4;
 
 
 
@@ -158,7 +202,16 @@ SELECT course_id, course_name, credits
     WHERE credits >= 4;
 
 -- Update, delete, and select on Extra_Curricular_Activities
+UPDATE Extra_Curricular_Activities
+    SET category = 'STEM'
+    WHERE activity_id = 4;
 
+DELETE FROM Extra_Curricular_Activities
+    WHERE activity_id = 5;
+
+SELECT *
+FROM Extra_Curricular_Activities
+WHERE category = 'Academic';
 
 
 -- ========= JOIN QUERIES =========
