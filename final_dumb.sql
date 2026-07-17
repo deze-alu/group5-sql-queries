@@ -175,6 +175,15 @@ UPDATE Students
 
 -- Update, delete, and select on Classroom
 
+UPDATE Classroom
+SET capacity = 28
+WHERE classroom_id = 2;
+
+DELETE FROM Classroom
+WHERE classroom_id = 2;
+
+SELECT * FROM Classroom
+WHERE building = 'Main Block';
 
 
 -- Update Faculty
