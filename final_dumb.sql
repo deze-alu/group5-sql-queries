@@ -99,8 +99,10 @@ INSERT INTO Courses (course_name, credits, faculty_id, classroom_id) VALUES
 
 
 
--- Update, delete, and select on Courses
-
+-- Update, delete, and select on Courses (Member D)
+UPDATE Courses
+    SET credits = 5
+    WHERE course_id = 1;
 
 
 -- Update, delete, and select on Extra_Curricular_Activities
