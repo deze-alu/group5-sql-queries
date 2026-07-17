@@ -235,7 +235,17 @@ WHERE category = 'Academic';
 -- ========= JOIN QUERIES =========
 
 -- Join 1: student enrolled in course, taught by faculty, in classroom
-
+SELECT CONCAT(
+        s.name, ' is enrolled in ', c.course_name,
+        ', taught by ', f.name,
+        ', in room ', cl.room_number, '.'
+    ) AS enrollment_sentence
+FROM Student_Courses sc
+JOIN Students  s  ON sc.student_id  = s.student_id
+JOIN Courses   c  ON sc.course_id   = c.course_id
+JOIN Faculty   f  ON c.faculty_id   = f.faculty_id
+JOIN Classroom cl ON c.classroom_id = cl.classroom_id
+ORDER BY s.name;
 
 
 -- Join 2: student participates in activity, advised by faculty
