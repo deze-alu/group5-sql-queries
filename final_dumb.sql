@@ -84,7 +84,9 @@ INSERT INTO Students (name, email, classroom_id, enrollment_date) VALUES
 -- ========= UPDATE, DELETE, SELECT =========
 
 -- Update, delete, and select on Students
-
+UPDATE Students
+    SET email = 'amara.o@alu.edu'
+    WHERE student_id = 1;
 
 
 -- Update, delete, and select on Classroom
