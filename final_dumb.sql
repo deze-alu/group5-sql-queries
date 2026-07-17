@@ -18,7 +18,19 @@ USE alu_database;
 
 
 
--- Creates the Courses table
+-- Creates the Courses table (Member D)
+CREATE TABLE Courses (
+    course_id     INT          NOT NULL AUTO_INCREMENT,
+    course_name   VARCHAR(100) NOT NULL,
+    credits       INT,
+    faculty_id    INT          NOT NULL,
+    classroom_id  INT          NOT NULL,
+    PRIMARY KEY (course_id),
+    CONSTRAINT fk_courses_faculty
+        FOREIGN KEY (faculty_id)   REFERENCES Faculty (faculty_id),
+    CONSTRAINT fk_courses_classroom
+        FOREIGN KEY (classroom_id) REFERENCES Classroom (classroom_id)
+);
 
 
 
