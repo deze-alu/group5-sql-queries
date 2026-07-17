@@ -11,7 +11,16 @@ USE alu_database;
 
 
 -- Creates the Students table
-
+CREATE TABLE Students (
+    student_id       INT          NOT NULL AUTO_INCREMENT,
+    name             VARCHAR(100) NOT NULL,
+    email            VARCHAR(100) UNIQUE,
+    classroom_id     INT          NOT NULL,
+    enrollment_date  DATE,
+    PRIMARY KEY (student_id),
+    CONSTRAINT fk_students_classroom
+        FOREIGN KEY (classroom_id) REFERENCES Classroom (classroom_id)
+);
 
 
 -- Creates the Faculty table
