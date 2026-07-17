@@ -11,7 +11,16 @@ USE alu_database;
 
 
 -- Creates the Students table
-
+CREATE TABLE Students (
+    student_id       INT          NOT NULL AUTO_INCREMENT,
+    name             VARCHAR(100) NOT NULL,
+    email            VARCHAR(100) UNIQUE,
+    classroom_id     INT          NOT NULL,
+    enrollment_date  DATE,
+    PRIMARY KEY (student_id),
+    CONSTRAINT fk_students_classroom
+        FOREIGN KEY (classroom_id) REFERENCES Classroom (classroom_id)
+);
 
 
 -- Creates the Faculty table
@@ -61,7 +70,13 @@ CREATE TABLE Courses (
 
 
 -- Inserts rows into Students
-
+INSERT INTO Students (name, email, classroom_id, enrollment_date) VALUES
+    ('Amara Okafor',    'amara.okafor@alu.edu',    1, '2024-09-01'),
+    ('Kwame Mensah',    'kwame.mensah@alu.edu',    2, '2024-09-01'),
+    ('Chiamaka Eze',    'chiamaka.eze@alu.edu',    1, '2024-09-03'),
+    ('Thierry Uwase',   'thierry.uwase@alu.edu',   3, '2024-09-03'),
+    ('Fatima Diallo',   'fatima.diallo@alu.edu',   2, '2024-09-05'),
+    ('Daniel Bello',    'daniel.bello@alu.edu',    1, '2024-09-05'); 
 
 
 -- Inserts rows into Faculty
@@ -101,7 +116,9 @@ INSERT INTO Courses (course_name, credits, faculty_id, classroom_id) VALUES
 -- ========= UPDATE, DELETE, SELECT =========
 
 -- Update, delete, and select on Students
-
+UPDATE Students
+    SET email = 'amara.o@alu.edu'
+    WHERE student_id = 1;
 
 
 -- Update, delete, and select on Classroom
