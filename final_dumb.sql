@@ -14,7 +14,7 @@ USE alu_database;
 
 
 
--- Creates the Faculty table
+-- Member C: Creates the Faculty table
 CREATE TABLE Faculty (
     faculty_id INT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
