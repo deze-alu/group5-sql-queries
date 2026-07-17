@@ -43,11 +43,11 @@ CREATE TABLE Courses (
     course_id     INT          NOT NULL AUTO_INCREMENT,
     course_name   VARCHAR(100) NOT NULL,
     credits       INT,
-    faculty_id    INT          NOT NULL,
+    faculty_id    INT,
     classroom_id  INT          NOT NULL,
     PRIMARY KEY (course_id),
     CONSTRAINT fk_courses_faculty
-        FOREIGN KEY (faculty_id)   REFERENCES Faculty (faculty_id),
+        FOREIGN KEY (faculty_id)   REFERENCES Faculty (faculty_id) ON DELETE SET NULL,
     CONSTRAINT fk_courses_classroom
         FOREIGN KEY (classroom_id) REFERENCES Classroom (classroom_id)
 );
@@ -178,18 +178,23 @@ UPDATE Students
     SET email = 'amara.o@alu.edu'
     WHERE student_id = 1;
 
+DELETE FROM Students
+    WHERE student_id = 6;
+
+SELECT student_id, name, email
+    FROM Students
+    WHERE classroom_id = 1;
 
 -- Update, delete, and select on Classroom
 UPDATE Classroom
-    SET capacity = 55
-    WHERE classroom_id = 4;
+SET capacity = 28
+WHERE classroom_id = 2;
 
 DELETE FROM Classroom
-    WHERE classroom_id = 6;
+WHERE classroom_id = 2;
 
-SELECT classroom_id, room_number, building, capacity
-    FROM Classroom
-    WHERE capacity > 40;
+SELECT * FROM Classroom
+WHERE building = 'Main Block';
 
 -- Update Faculty
 UPDATE Faculty
