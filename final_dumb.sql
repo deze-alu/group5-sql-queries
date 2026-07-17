@@ -8,7 +8,7 @@ USE alu_database;
 
 -- Creates the Classroom table
 CREATE TABLE Classroom(
-    classroom_id INT PRIMARY KEY,
+    classroom_id INT AUTO_INCREMENT PRIMARY KEY,
     room_number VARCHAR(10) NOT NULL,
     building VARCHAR(50) NOT NULL,
     capacity INT NOT NULL
@@ -30,7 +30,7 @@ CREATE TABLE Students (
 
 -- Creates the Faculty table
 CREATE TABLE Faculty (
-    faculty_id INT PRIMARY KEY,
+    faculty_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     department VARCHAR(50) NOT NULL
@@ -101,6 +101,12 @@ VALUES (1,'101', 'Main Block', 30);
 INSERT INTO Classroom (classroom_id, room_number, building, capacity)
 VALUES (2, '102', 'Main Block', 25);
 
+INSERT INTO Classroom (room_number, building, capacity) VALUES
+    ('201', 'Tech Hub',      30),
+    ('301', 'Arts Wing',     50),
+    ('205', 'Science Block', 45),
+    ('110', 'Temp Annex',    25);
+
 -- Inserts rows into Students
 INSERT INTO Students (name, email, classroom_id, enrollment_date) VALUES
     ('Amara Okafor',    'amara.okafor@alu.edu',    1, '2024-09-01'),
@@ -108,7 +114,7 @@ INSERT INTO Students (name, email, classroom_id, enrollment_date) VALUES
     ('Chiamaka Eze',    'chiamaka.eze@alu.edu',    1, '2024-09-03'),
     ('Thierry Uwase',   'thierry.uwase@alu.edu',   3, '2024-09-03'),
     ('Fatima Diallo',   'fatima.diallo@alu.edu',   2, '2024-09-05'),
-    ('Daniel Bello',    'daniel.bello@alu.edu',    1, '2024-09-05'); 
+    ('Daniel Bello',    'daniel.bello@alu.edu',    1, '2024-09-05');
 
 
 -- Inserts rows into Faculty
@@ -174,17 +180,16 @@ UPDATE Students
 
 
 -- Update, delete, and select on Classroom
-
 UPDATE Classroom
-SET capacity = 28
-WHERE classroom_id = 2;
+    SET capacity = 55
+    WHERE classroom_id = 4;
 
 DELETE FROM Classroom
-WHERE classroom_id = 2;
+    WHERE classroom_id = 6;
 
-SELECT * FROM Classroom
-WHERE building = 'Main Block';
-
+SELECT classroom_id, room_number, building, capacity
+    FROM Classroom
+    WHERE capacity > 40;
 
 -- Update Faculty
 UPDATE Faculty
