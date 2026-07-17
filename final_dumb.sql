@@ -89,16 +89,16 @@ VALUES
 
 
 
--- Update Faculty
+-- Update Faculty department
 UPDATE Faculty
 SET department = 'Data Science'
 WHERE faculty_id = 3;
 
--- Delete Faculty
+-- Delete Faculty member
 DELETE FROM Faculty
 WHERE faculty_id = 5;
 
--- Select Faculty
+-- Retrieve Faculty members from Computer Science
 SELECT *
 FROM Faculty
 WHERE department = 'Computer Science';
