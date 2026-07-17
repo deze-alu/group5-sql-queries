@@ -15,6 +15,12 @@ USE alu_database;
 
 
 -- Creates the Faculty table
+CREATE TABLE Faculty (
+    faculty_id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    department VARCHAR(50) NOT NULL
+);
 
 
 
@@ -47,6 +53,13 @@ USE alu_database;
 
 
 -- Inserts rows into Faculty
+INSERT INTO Faculty (faculty_id, name, email, department)
+VALUES
+(1, 'Dr. Emma Johnson', 'emma@alu.edu', 'Computer Science'),
+(2, 'Mr. Joe Smith', 'joe@alu.edu', 'Business'),
+(3, 'Dr. Catherine Summers', 'catherine@alu.edu', 'Engineering'),
+(4, 'Ms. David Grey', 'david@alu.edu', 'Mathematics'),
+(5, 'Prof. Nora Davis', 'nora@alu.edu', 'Information Systems');
 
 
 
@@ -76,7 +89,19 @@ USE alu_database;
 
 
 
--- Update, delete, and select on Faculty
+-- Update Faculty
+UPDATE Faculty
+SET department = 'Data Science'
+WHERE faculty_id = 3;
+
+-- Delete Faculty
+DELETE FROM Faculty
+WHERE faculty_id = 5;
+
+-- Select Faculty
+SELECT *
+FROM Faculty
+WHERE department = 'Computer Science';
 
 
 
