@@ -107,7 +107,9 @@ UPDATE Courses
 DELETE FROM Courses
     WHERE course_id = 6;
 
-
+SELECT course_id, course_name, credits
+    FROM Courses
+    WHERE credits >= 4;
 
 -- Update, delete, and select on Extra_Curricular_Activities
 
