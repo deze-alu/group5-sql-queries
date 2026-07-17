@@ -249,7 +249,15 @@ ORDER BY s.name;
 
 
 -- Join 2: student participates in activity, advised by faculty
-
+SELECT CONCAT(
+        s.name, ' participates in ', a.activity_name,
+        ', advised by ', f.name, '.'
+    ) AS activity_sentence
+FROM Student_Activities sa
+JOIN Students s ON sa.student_id = s.student_id
+JOIN Extra_Curricular_Activities a ON sa.activity_id = a.activity_id
+JOIN Faculty  f ON a.faculty_advisor_id = f.faculty_id
+ORDER BY s.name;
 
 
 -- Join 3: team's own join
