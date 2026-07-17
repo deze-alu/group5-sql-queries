@@ -95,7 +95,11 @@ CREATE TABLE Student_Activities (
 -- =====================================================================
 
 -- Inserts rows into Classroom
+INSERT INTO Classroom (classroom_id, room_number, building, capacity)
+VALUES (1,'101', 'Main Block', 30);
 
+INSERT INTO Classroom (classroom_id, room_number, building, capacity)
+VALUES (2, '102', 'Main Block', 25);
 
 -- Inserts rows into Students
 INSERT INTO Students (name, email, classroom_id, enrollment_date) VALUES
