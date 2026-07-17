@@ -7,7 +7,12 @@ USE alu_database;
 -- =====================================================================
 
 -- Creates the Classroom table
-
+CREATE TABLE Classroom(
+    classroom_id INT PRIMARY KEY,
+    room_number VARCHAR(10) NOT NULL,
+    building VARCHAR(50) NOT NULL,
+    capacity INT NOT NULL
+);
 
 
 -- Creates the Students table
@@ -39,7 +44,6 @@ USE alu_database;
 -- =====================================================================
 
 -- Inserts rows into Classroom
-
 
 
 -- Inserts rows into Students
