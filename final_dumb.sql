@@ -62,7 +62,14 @@ CREATE TABLE Courses (
 
 
 
--- Inserts rows into Courses
+-- Inserts rows into Courses (Member D)
+INSERT INTO Courses (course_name, credits, faculty_id, classroom_id) VALUES
+    ('Introduction to Programming', 4, 1, 3),
+    ('Calculus I',                  3, 2, 1),
+    ('Classical Mechanics',         4, 3, 2),
+    ('Digital Art Foundations',     3, 4, 4),
+    ('Cell Biology',                4, 5, 5),
+    ('Organic Chemistry',           4, 1, 1);
 
 
 
