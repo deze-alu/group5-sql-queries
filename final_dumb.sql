@@ -280,3 +280,12 @@ FROM Courses c
 LEFT JOIN Student_Courses sc ON c.course_id = sc.course_id
 GROUP BY c.course_id, c.course_name
 ORDER BY num_students DESC, c.course_name;
+
+
+-- ========= NORMALIZATION PARAGRAPH ============
+-- Each type of information lives in its own table, and nothing important is
+-- written down twice. A student can join many courses, and a course can have many students (the
+-- same is true for activities).
+-- A teacher's name and a room's details are stored once (in the Faculty and Classroom tables), and the Courses table
+-- simply points to them instead of repeating them. If a teacher's name ever
+-- changes, we only fix it in one place.
