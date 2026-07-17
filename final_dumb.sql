@@ -104,6 +104,10 @@ UPDATE Courses
     SET credits = 5
     WHERE course_id = 1;
 
+DELETE FROM Courses
+    WHERE course_id = 6;
+
+
 
 -- Update, delete, and select on Extra_Curricular_Activities
 
