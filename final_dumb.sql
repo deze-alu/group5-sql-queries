@@ -52,7 +52,13 @@ CREATE TABLE Students (
 
 
 -- Inserts rows into Students
-
+INSERT INTO Students (name, email, classroom_id, enrollment_date) VALUES
+    ('Amara Okafor',    'amara.okafor@alu.edu',    1, '2024-09-01'),
+    ('Kwame Mensah',    'kwame.mensah@alu.edu',    2, '2024-09-01'),
+    ('Chiamaka Eze',    'chiamaka.eze@alu.edu',    1, '2024-09-03'),
+    ('Thierry Uwase',   'thierry.uwase@alu.edu',   3, '2024-09-03'),
+    ('Fatima Diallo',   'fatima.diallo@alu.edu',   2, '2024-09-05'),
+    ('Daniel Bello',    'daniel.bello@alu.edu',    1, '2024-09-05'); 
 
 
 -- Inserts rows into Faculty
