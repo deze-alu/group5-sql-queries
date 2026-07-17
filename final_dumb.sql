@@ -24,7 +24,19 @@ CREATE TABLE Faculty (
 
 
 
--- Creates the Courses table
+-- Creates the Courses table (Member D)
+CREATE TABLE Courses (
+    course_id     INT          NOT NULL AUTO_INCREMENT,
+    course_name   VARCHAR(100) NOT NULL,
+    credits       INT,
+    faculty_id    INT          NOT NULL,
+    classroom_id  INT          NOT NULL,
+    PRIMARY KEY (course_id),
+    CONSTRAINT fk_courses_faculty
+        FOREIGN KEY (faculty_id)   REFERENCES Faculty (faculty_id),
+    CONSTRAINT fk_courses_classroom
+        FOREIGN KEY (classroom_id) REFERENCES Classroom (classroom_id)
+);
 
 
 
@@ -63,7 +75,14 @@ VALUES
 
 
 
--- Inserts rows into Courses
+-- Inserts rows into Courses (Member D)
+INSERT INTO Courses (course_name, credits, faculty_id, classroom_id) VALUES
+    ('Introduction to Programming', 4, 1, 3),
+    ('Calculus I',                  3, 2, 1),
+    ('Classical Mechanics',         4, 3, 2),
+    ('Digital Art Foundations',     3, 4, 4),
+    ('Cell Biology',                4, 5, 5),
+    ('Organic Chemistry',           4, 1, 1);
 
 
 
@@ -105,9 +124,17 @@ WHERE department = 'Computer Science';
 
 
 
--- Update, delete, and select on Courses
+-- Update, delete, and select on Courses (Member D)
+UPDATE Courses
+    SET credits = 5
+    WHERE course_id = 1;
 
+DELETE FROM Courses
+    WHERE course_id = 6;
 
+SELECT course_id, course_name, credits
+    FROM Courses
+    WHERE credits >= 4;
 
 -- Update, delete, and select on Extra_Curricular_Activities
 
