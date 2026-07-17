@@ -260,8 +260,15 @@ JOIN Faculty  f ON a.faculty_advisor_id = f.faculty_id
 ORDER BY s.name;
 
 
--- Join 3: team's own join
-
+-- Join 3: Student's grade in each course they take
+SELECT CONCAT(
+        s.name, ' is taking ', c.course_name,
+        ' and currently has grade ', sc.grade, '.'
+    ) AS grade_sentence
+FROM Student_Courses sc
+JOIN Students s ON sc.student_id = s.student_id
+JOIN Courses  c ON sc.course_id  = c.course_id
+ORDER BY s.name, c.course_name;
 
 
 -- ========= AGGREGATE QUERY =========
