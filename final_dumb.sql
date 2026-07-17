@@ -274,3 +274,9 @@ ORDER BY s.name, c.course_name;
 -- ========= AGGREGATE QUERY =========
 
 -- Count of students in each course (COUNT / GROUP BY)
+SELECT c.course_name,
+       COUNT(sc.student_id) AS num_students
+FROM Courses c
+LEFT JOIN Student_Courses sc ON c.course_id = sc.course_id
+GROUP BY c.course_id, c.course_name
+ORDER BY num_students DESC, c.course_name;
