@@ -52,7 +52,7 @@ CREATE TABLE Faculty (
 
 
 
--- Inserts rows into Faculty
+-- Inserts sample faculty records into Faculty
 INSERT INTO Faculty (faculty_id, name, email, department)
 VALUES
 (1, 'Dr. Emma Johnson', 'emma@alu.edu', 'Computer Science'),
