@@ -1,6 +1,6 @@
 # Group 5 — SQL Queries
 
-A group assignment for ALU that builds and queries a school database (`alu_database`) in MySQL. All SQL lives in a single script: [`final_dumb.sql`](final_dumb.sql).
+A group assignment for ALU that builds and queries a school database (`alu_database`) in MySQL. All SQL lives in a single script: [`final_dump.sql`](final_dump.sql).
 
 ## Database Schema
 
@@ -35,13 +35,13 @@ The script is organized into five sections, run in order:
 Requires a running MySQL server.
 
 ```bash
-mysql -u <username> -p < final_dumb.sql
+mysql -u <username> -p < final_dump.sql
 ```
 
 Or from the MySQL shell:
 
 ```sql
-SOURCE final_dumb.sql;
+SOURCE final_dump.sql;
 ```
 
 ## Status

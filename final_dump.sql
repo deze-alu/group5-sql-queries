@@ -1,4 +1,4 @@
--- ========= CREATE DATABASE =========
+-- ========= CREATE DATABASE ========= (Daniel)
 CREATE DATABASE IF NOT EXISTS alu_database;
 USE alu_database;
 
@@ -6,7 +6,7 @@ USE alu_database;
 -- CREATE TABLES
 -- =====================================================================
 
--- Creates the Classroom table
+-- Creates the Classroom table (Amudaheranwa)
 CREATE TABLE Classroom(
     classroom_id INT AUTO_INCREMENT PRIMARY KEY,
     room_number VARCHAR(10) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE Classroom(
 );
 
 
--- Creates the Students table
+-- Creates the Students table (Eunice)
 CREATE TABLE Students (
     student_id       INT          NOT NULL AUTO_INCREMENT,
     name             VARCHAR(100) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE Students (
 );
 
 
--- Creates the Faculty table
+-- Creates the Faculty table (Portia)
 CREATE TABLE Faculty (
     faculty_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE Faculty (
 
 
 
--- Creates the Courses table (Member D)
+-- Creates the Courses table (Taiwo)
 CREATE TABLE Courses (
     course_id     INT          NOT NULL AUTO_INCREMENT,
     course_name   VARCHAR(100) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE Courses (
 
 
 
--- Creates the Extra_Curricular_Activities table
+-- Creates the Extra_Curricular_Activities table (Brian)
 CREATE TABLE Extra_Curricular_Activities (
     activity_id         INT          NOT NULL AUTO_INCREMENT,
     activity_name        VARCHAR(100) NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE Extra_Curricular_Activities (
 
 
 
--- Creates the Student_Courses junction table
+-- Creates the Student_Courses junction table (Brian)
 CREATE TABLE Student_Courses (
     student_id  INT,
     course_id   INT,
@@ -78,7 +78,7 @@ CREATE TABLE Student_Courses (
     FOREIGN KEY (course_id)  REFERENCES Courses(course_id)
 );
 
--- Creates the Student_Activities junction table
+-- Creates the Student_Activities junction table (Brian)
 CREATE TABLE Student_Activities (
     student_id   INT,
     activity_id  INT,
@@ -94,7 +94,7 @@ CREATE TABLE Student_Activities (
 -- INSERT DATA
 -- =====================================================================
 
--- Inserts rows into Classroom
+-- Inserts rows into Classroom (Amudaheranwa)
 INSERT INTO Classroom (classroom_id, room_number, building, capacity)
 VALUES (1,'101', 'Main Block', 30);
 
@@ -107,7 +107,7 @@ INSERT INTO Classroom (room_number, building, capacity) VALUES
     ('205', 'Science Block', 45),
     ('110', 'Temp Annex',    25);
 
--- Inserts rows into Students
+-- Inserts rows into Students (Eunice)
 INSERT INTO Students (name, email, classroom_id, enrollment_date) VALUES
     ('Amara Okafor',    'amara.okafor@alu.edu',    1, '2024-09-01'),
     ('Kwame Mensah',    'kwame.mensah@alu.edu',    2, '2024-09-01'),
@@ -117,7 +117,7 @@ INSERT INTO Students (name, email, classroom_id, enrollment_date) VALUES
     ('Daniel Bello',    'daniel.bello@alu.edu',    1, '2024-09-05');
 
 
--- Inserts rows into Faculty
+-- Inserts rows into Faculty (Portia)
 INSERT INTO Faculty (faculty_id, name, email, department)
 VALUES
 (1, 'Dr. Emma Johnson', 'emma@alu.edu', 'Computer Science'),
@@ -128,7 +128,7 @@ VALUES
 
 
 
--- Inserts rows into Courses (Member D)
+-- Inserts rows into Courses (Taiwo)
 INSERT INTO Courses (course_name, credits, faculty_id, classroom_id) VALUES
     ('Introduction to Programming', 4, 1, 3),
     ('Calculus I',                  3, 2, 1),
@@ -139,7 +139,7 @@ INSERT INTO Courses (course_name, credits, faculty_id, classroom_id) VALUES
 
 
 
--- Inserts rows into Extra_Curricular_Activities
+-- Inserts rows into Extra_Curricular_Activities (Brian)
 INSERT INTO Extra_Curricular_Activities (activity_name, category, faculty_advisor_id) VALUES
     ('Debate Club',    'Academic',   1),
     ('Football Team',  'Sports',     2),
@@ -147,7 +147,7 @@ INSERT INTO Extra_Curricular_Activities (activity_name, category, faculty_adviso
     ('Coding Club',    'Technology', 1),
     ('Chess Club',     'Academic',   4);
 
--- Inserts rows into Student_Courses
+-- Insert, update, and delete on Student_Courses (Brian)
 INSERT INTO Student_Courses (student_id, course_id, grade, date_enrolled) VALUES
     (1, 1, 'A',  '2026-01-15'),
     (2, 1, 'B+', '2026-01-15'),
@@ -158,7 +158,7 @@ INSERT INTO Student_Courses (student_id, course_id, grade, date_enrolled) VALUES
 UPDATE Student_Courses SET grade = 'A+' WHERE student_id = 1 AND course_id = 1;
 DELETE FROM Student_Courses WHERE student_id = 5 AND course_id = 2;
 
--- Inserts rows into Student_Activities
+-- Insert, update, and delete on Student_Activities (Brian)
 INSERT INTO Student_Activities (student_id, activity_id, join_date) VALUES
     (1, 1, '2026-02-01'),
     (2, 2, '2026-02-01'),
@@ -173,7 +173,7 @@ DELETE FROM Student_Activities WHERE student_id = 4 AND activity_id = 4;
 
 -- ========= UPDATE, DELETE, SELECT =========
 
--- Update, delete, and select on Students
+-- Update, delete, and select on Students (Eunice)
 UPDATE Students
     SET email = 'amara.o@alu.edu'
     WHERE student_id = 1;
@@ -185,34 +185,32 @@ SELECT student_id, name, email
     FROM Students
     WHERE classroom_id = 1;
 
--- Update, delete, and select on Classroom
+-- Update, delete, and select on Classroom (Amudaheranwa)
 UPDATE Classroom
 SET capacity = 28
 WHERE classroom_id = 2;
 
 DELETE FROM Classroom
-WHERE classroom_id = 2;
+WHERE classroom_id = 6;
 
 SELECT * FROM Classroom
 WHERE building = 'Main Block';
 
--- Update Faculty
+-- Update, delete, and select on Faculty (Portia)
 UPDATE Faculty
 SET department = 'Data Science'
 WHERE faculty_id = 3;
 
--- Delete Faculty
 DELETE FROM Faculty
 WHERE faculty_id = 5;
 
--- Select Faculty
 SELECT *
 FROM Faculty
 WHERE department = 'Computer Science';
 
 
 
--- Update, delete, and select on Courses
+-- Update, delete, and select on Courses (Taiwo)
 UPDATE Courses
     SET credits = 5
     WHERE course_id = 1;
@@ -224,7 +222,7 @@ SELECT course_id, course_name, credits
     FROM Courses
     WHERE credits >= 4;
 
--- Update, delete, and select on Extra_Curricular_Activities
+-- Update, delete, and select on Extra_Curricular_Activities (Brian)
 UPDATE Extra_Curricular_Activities
     SET category = 'STEM'
     WHERE activity_id = 4;
@@ -237,9 +235,9 @@ FROM Extra_Curricular_Activities
 WHERE category = 'Academic';
 
 
--- ========= JOIN QUERIES =========
+-- ========= JOIN QUERIES (whole group) =========
 
--- Join 1: student enrolled in course, taught by faculty, in classroom
+-- Join 1: student enrolled in course, taught by faculty, in classroom (Daniel)
 SELECT CONCAT(
         s.name, ' is enrolled in ', c.course_name,
         ', taught by ', f.name,
@@ -253,7 +251,7 @@ JOIN Classroom cl ON c.classroom_id = cl.classroom_id
 ORDER BY s.name;
 
 
--- Join 2: student participates in activity, advised by faculty
+-- Join 2: student participates in activity, advised by faculty (Daniel)
 SELECT CONCAT(
         s.name, ' participates in ', a.activity_name,
         ', advised by ', f.name, '.'
@@ -265,7 +263,7 @@ JOIN Faculty  f ON a.faculty_advisor_id = f.faculty_id
 ORDER BY s.name;
 
 
--- Join 3: Student's grade in each course they take
+-- Join 3: Student's grade in each course they take (Daniel)
 SELECT CONCAT(
         s.name, ' is taking ', c.course_name,
         ' and currently has grade ', sc.grade, '.'
@@ -276,9 +274,9 @@ JOIN Courses  c ON sc.course_id  = c.course_id
 ORDER BY s.name, c.course_name;
 
 
--- ========= AGGREGATE QUERY =========
+-- ========= AGGREGATE QUERY (whole group) =========
 
--- Count of students in each course (COUNT / GROUP BY)
+-- Count of students in each course (COUNT / GROUP BY) (Daniel)
 SELECT c.course_name,
        COUNT(sc.student_id) AS num_students
 FROM Courses c
@@ -287,7 +285,7 @@ GROUP BY c.course_id, c.course_name
 ORDER BY num_students DESC, c.course_name;
 
 
--- ========= NORMALIZATION PARAGRAPH ============
+-- ========= NORMALIZATION PARAGRAPH (whole group) ============
 -- Each type of information lives in its own table, and nothing important is
 -- written down twice. A student can join many courses, and a course can have many students (the
 -- same is true for activities).
